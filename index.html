@@ -20,14 +20,21 @@
   @keyframes drift { 0% { transform: translateY(0); } 50% { transform: translateY(-10px); } 100% { transform: translateY(0); } }
   @keyframes blink { 0%,100% { opacity: 1; } 50% { opacity: .25; } }
   .photo-slot { position: relative; width: 100%; height: 100%; overflow: hidden; }
-  .photo-slot img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .photo-slot img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .6s cubic-bezier(.2,.7,.2,1); }
+  article:hover .photo-slot img { transform: scale(1.045); }
   .photo-placeholder { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; background:rgba(245,243,239,0.04); font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:0.14em; text-transform:uppercase; color:rgba(245,243,239,0.32); text-align:center; padding:20px; }
+  [data-nav-link] { position: relative; padding-bottom: 4px; }
+  [data-nav-link]::after { content: ''; position: absolute; left: 0; right: 100%; bottom: -1px; height: 1px; background: oklch(0.76 0.13 68); transition: right .3s ease; }
+  [data-nav-link].is-active { color: #F5F3EF; }
+  [data-nav-link].is-active::after { right: 0; }
+  .video-frame:hover { border-color: rgba(245,243,239,0.3); }
   @media (max-width: 900px) {
     #top > div { grid-template-columns: 1fr !important; }
     section article { grid-template-columns: 1fr !important; }
     section > div > div[style*="grid-template-columns:1fr 1fr"] { grid-template-columns: 1fr !important; }
+    section > div > div[style*="grid-template-columns:0.9fr 1.1fr"] { grid-template-columns: 1fr !important; }
     div[style*="grid-template-columns:180px 1fr 220px"] { grid-template-columns: 1fr !important; }
-    nav div[style*="gap:30px"] { display: none !important; }
+    nav [data-nav] { display: none !important; }
   }
 </style>
 </head>
@@ -42,11 +49,12 @@
     <span style="font-family:'Newsreader',serif;font-size:19px;letter-spacing:0.01em">Faraj Atwi</span>
     <span style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.18em;text-transform:uppercase;color:rgba(245,243,239,0.4)">Aurora, CO</span>
   </a>
-  <div style="display:flex;align-items:center;gap:30px;font-size:13px;letter-spacing:0.04em;color:rgba(245,243,239,0.72)">
-    <a href="#record">Record</a>
-    <a href="#work">Case Studies</a>
-    <a href="#timeline">Experience</a>
-    <a href="#expertise">Expertise</a>
+  <div data-nav="" style="display:flex;align-items:center;gap:30px;font-size:13px;letter-spacing:0.04em;color:rgba(245,243,239,0.72)">
+    <a data-nav-link="record" href="#record">Record</a>
+    <a data-nav-link="work" href="#work">Case Studies</a>
+    <a data-nav-link="video" href="#video">In Practice</a>
+    <a data-nav-link="timeline" href="#timeline">Experience</a>
+    <a data-nav-link="expertise" href="#expertise">Expertise</a>
     <a href="#contact" style="border:1px solid rgba(245,243,239,0.25);padding:8px 16px;border-radius:2px;color:#F5F3EF">Contact</a>
   </div>
 </nav>
@@ -173,7 +181,7 @@
     </div>
 
     <article data-reveal="" style="display:grid;grid-template-columns:0.9fr 1.1fr;gap:56px;align-items:center;padding:56px 0;border-top:1px solid rgba(245,243,239,0.12)">
-      <div style="position:relative;aspect-ratio:4/3;border:1px solid rgba(245,243,239,0.12)"><div class="photo-slot"><img src="images/fa-case-weiser.webp" alt="Phil Weiser for Colorado campaign photo" /></div></div>
+      <div style="position:relative;aspect-ratio:4/3;border:1px solid rgba(245,243,239,0.12)"><div class="photo-slot"><img src="images/fa-case-weiser.png" alt="Phil Weiser for Governor campaign photo" /></div></div>
       <div>
         <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:oklch(0.76 0.13 68);margin-bottom:14px">2026 · Statewide · Political &amp; Field Associate</div>
         <h3 style="font-family:'Newsreader',serif;font-weight:400;font-size:clamp(30px,3vw,44px);line-height:1.1;letter-spacing:-0.02em;margin:0 0 20px">Phil Weiser for Colorado</h3>
@@ -224,11 +232,11 @@
           <div><div style="font-family:'IBM Plex Mono',monospace;font-size:26px;color:oklch(0.76 0.13 68)">HD 41</div><div style="font-size:11px;letter-spacing:0.13em;text-transform:uppercase;color:rgba(245,243,239,0.45);margin-top:5px">District served</div></div>
         </div>
       </div>
-      <div style="position:relative;aspect-ratio:4/3;border:1px solid rgba(245,243,239,0.12)"><div class="photo-slot"><div class="photo-placeholder">Capitol / legislative photo</div></div></div>
+      <div style="position:relative;aspect-ratio:4/3;border:1px solid rgba(245,243,239,0.12)"><div class="photo-slot"><img src="images/fa-case-hd41.webp" alt="Colorado State House HD 41 legislative planning session" /></div></div>
     </article>
 
     <article data-reveal="" style="display:grid;grid-template-columns:0.9fr 1.1fr;gap:56px;align-items:center;padding:56px 0;border-top:1px solid rgba(245,243,239,0.12);border-bottom:1px solid rgba(245,243,239,0.12)">
-      <div style="position:relative;aspect-ratio:4/3;border:1px solid rgba(245,243,239,0.12)"><div class="photo-slot"><div class="photo-placeholder">Coordinated campaign photo</div></div></div>
+      <div style="position:relative;aspect-ratio:4/3;border:1px solid rgba(245,243,239,0.12)"><div class="photo-slot"><img src="images/fa-case-coord.jpg" alt="Colorado Coordinated Campaign / New American Leaders cohort photo" /></div></div>
       <div>
         <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:oklch(0.76 0.13 68);margin-bottom:14px">2022 · Arapahoe County · Field Organizer</div>
         <h3 style="font-family:'Newsreader',serif;font-weight:400;font-size:clamp(30px,3vw,44px);line-height:1.1;letter-spacing:-0.02em;margin:0 0 20px">Colorado Coordinated Campaign</h3>
@@ -242,10 +250,29 @@
   </div>
 </section>
 
+<section id="video" style="position:relative;padding:120px 40px;background:#0C1B2C">
+  <div style="max-width:1100px;margin:0 auto">
+    <div data-reveal="" style="display:flex;align-items:baseline;gap:20px;margin-bottom:44px">
+      <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.22em;text-transform:uppercase;color:oklch(0.76 0.13 68)">03 — In Practice</span>
+      <div style="flex:1;height:1px;background:rgba(245,243,239,0.16)"></div>
+    </div>
+    <div data-reveal="" style="display:grid;grid-template-columns:0.9fr 1.1fr;gap:56px;align-items:center">
+      <div>
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:oklch(0.76 0.13 68);margin-bottom:14px">Dec 2025 · Roma, Italy · Legal Associate</div>
+        <h2 style="font-family:'Newsreader',serif;font-weight:400;font-size:clamp(30px,3.4vw,46px);line-height:1.1;letter-spacing:-0.02em;margin:0 0 20px">Legal work, in the room.</h2>
+        <p style="font-size:16px;line-height:1.7;color:rgba(245,243,239,0.72);margin:0;font-weight:300">A short look inside the litigation and transactional work completed with The Lex Fellowship across six Italian firms — the same analytical rigor now applied to legislative research and campaign strategy back in Colorado.</p>
+      </div>
+      <div class="video-frame" style="display:flex;align-items:center;justify-content:center;max-height:70vh;border:1px solid rgba(245,243,239,0.14);background:#000;overflow:hidden">
+        <video data-autoplay-video="" src="video/legal-work.mov" controls="" muted="" loop="" playsinline="" preload="metadata" style="max-width:100%;max-height:70vh;display:block"></video>
+      </div>
+    </div>
+  </div>
+</section>
+
 <section id="timeline" style="position:relative;padding:120px 40px;background:#0E1A2B">
   <div style="max-width:1320px;margin:0 auto">
     <div data-reveal="" style="display:flex;align-items:baseline;gap:20px;margin-bottom:44px">
-      <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.22em;text-transform:uppercase;color:oklch(0.76 0.13 68)">03 — Experience</span>
+      <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.22em;text-transform:uppercase;color:oklch(0.76 0.13 68)">04 — Experience</span>
       <div style="flex:1;height:1px;background:rgba(245,243,239,0.16)"></div>
     </div>
     <div data-filters="" style="display:flex;flex-wrap:wrap;gap:10px;margin-bottom:56px">
@@ -323,7 +350,7 @@
 <section id="expertise" style="position:relative;background:#F5F3EF;color:#1B2430;padding:120px 40px">
   <div style="max-width:1320px;margin:0 auto">
     <div data-reveal="" style="display:flex;align-items:baseline;gap:20px;margin-bottom:64px">
-      <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.22em;text-transform:uppercase;color:oklch(0.58 0.11 68)">04 — Expertise</span>
+      <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.22em;text-transform:uppercase;color:oklch(0.58 0.11 68)">05 — Expertise</span>
       <div style="flex:1;height:1px;background:rgba(27,36,48,0.16)"></div>
     </div>
     <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:52px 60px">
@@ -369,7 +396,7 @@
   </svg>
   <div style="position:relative;max-width:1320px;margin:0 auto">
     <div data-reveal="" style="display:flex;align-items:baseline;gap:20px;margin-bottom:64px">
-      <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.22em;text-transform:uppercase;color:oklch(0.76 0.13 68)">05 — Contact</span>
+      <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.22em;text-transform:uppercase;color:oklch(0.76 0.13 68)">06 — Contact</span>
       <div style="flex:1;height:1px;background:rgba(245,243,239,0.16)"></div>
     </div>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:70px;align-items:start">
@@ -502,6 +529,32 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   };
   btns.forEach(function (b) { b.addEventListener('click', function () { apply(b.getAttribute('data-filter')); }); });
+
+  var navLinks = q('[data-nav-link]');
+  var navSections = navLinks.map(function (a) { return document.getElementById(a.getAttribute('data-nav-link')); }).filter(Boolean);
+  if (navLinks.length && navSections.length) {
+    var setActive = function (id) {
+      navLinks.forEach(function (a) { a.classList.toggle('is-active', a.getAttribute('data-nav-link') === id); });
+    };
+    var navIo = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) setActive(e.target.id);
+      });
+    }, { rootMargin: '-45% 0px -45% 0px' });
+    navSections.forEach(function (el) { navIo.observe(el); });
+  }
+
+  var videos = q('[data-autoplay-video]');
+  if (videos.length) {
+    var vio = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        var v = e.target;
+        if (e.isIntersecting) { v.play().catch(function () {}); }
+        else { v.pause(); }
+      });
+    }, { threshold: 0.4 });
+    videos.forEach(function (v) { vio.observe(v); });
+  }
 
   var form = document.querySelector('[data-form]');
   if (form) {
